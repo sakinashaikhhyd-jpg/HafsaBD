@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Hafsa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#fff7fb;
+      --bg2:#fff3ef;
+      --card:#ffffffcc;
+      --text:#4b4453;
+      --accent:#d35d86;
+      --accent2:#f3b2c8;
+      --soft:#fff;
+      --shadow:0 10px 30px rgba(211,93,134,.15);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,sans-serif;
+      color:var(--text);
+      background:linear-gradient(180deg,var(--bg1),var(--bg2));
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    .floating{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      z-index:0;
+    }
+    .floating span{
+      position:absolute;
+      font-size:28px;
+      opacity:.4;
+      animation: drift 12s linear infinite;
+    }
+    @keyframes drift{
+      from{transform:translateY(20px)}
+      50%{transform:translateY(-12px)}
+      to{transform:translateY(20px)}
+    }
+    .container{
+      max-width:1150px;
+      margin:0 auto;
+      padding:40px 20px 70px;
+      position:relative;
+      z-index:1;
+    }
+    .badge{
+      display:inline-block;
+      background:#fff;
+      border:1px solid #f3d8e3;
+      border-radius:999px;
+      padding:10px 16px;
+      box-shadow:var(--shadow);
+      font-size:14px;
+    }
+    h1{
+      font-family:"Playfair Display", serif;
+      font-size:clamp(2.3rem, 5vw, 4.7rem);
+      line-height:1.05;
+      margin:18px 0 14px;
+      color:#b53f6d;
+    }
+    .sub{
+      max-width:760px;
+      margin:0 auto 30px;
+      font-size:1.06rem;
+      line-height:1.7;
+      color:#6d6470;
+    }
+    .hero{text-align:center;margin-bottom:26px}
+    .grid{
+      display:grid;
+      grid-template-columns:1.2fr .9fr;
+      gap:24px;
+      align-items:start;
+    }
+    .flowers{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(170px, 1fr));
+      gap:18px;
+    }
+    .flower{
+      border:none;
+      border-radius:28px;
+      min-height:185px;
+      padding:18px;
+      text-align:left;
+      cursor:pointer;
+      box-shadow:var(--shadow);
+      transition:transform .2s ease, box-shadow .2s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .flower:hover{transform:translateY(-5px); box-shadow:0 15px 35px rgba(211,93,134,.2)}
+    .flower .num{
+      position:absolute;
+      top:14px; right:14px;
+      background:rgba(255,255,255,.88);
+      border-radius:999px;
+      padding:8px 12px;
+      font-size:12px;
+      font-weight:700;
+    }
+    .flower .emoji{font-size:40px; margin-top:8px}
+    .flower h3{margin:18px 0 8px; font-size:1.2rem}
+    .flower p{margin:0; font-size:.93rem; color:#6d6470; line-height:1.5}
+    .panel{
+      position:sticky;
+      top:20px;
+      background:var(--card);
+      backdrop-filter:blur(10px);
+      border:1px solid #fff;
+      border-radius:32px;
+      padding:28px;
+      min-height:390px;
+      box-shadow:var(--shadow);
+    }
+    .panel h2{
+      margin:0 0 10px;
+      font-family:"Playfair Display", serif;
+      color:#a53e67;
+    }
+    .panel .big{
+      font-size:1.12rem;
+      line-height:1.9;
+      color:#594f59;
+      margin-top:14px;
+    }
+    .placeholder{
+      display:flex; height:100%; min-height:330px;
+      align-items:center; justify-content:center; text-align:center;
+      flex-direction:column;
+    }
+    .count{
+      margin-top:22px;
+      border-radius:18px;
+      background:#fff3f7;
+      padding:13px 15px;
+      font-size:.95rem;
+      font-weight:600;
+      color:#b14a72;
+    }
+    .finalBtn{
+      display:none;
+      margin-top:16px;
+      width:100%;
+      border:none;
+      border-radius:18px;
+      background:#c74d79;
+      color:#fff;
+      padding:16px 18px;
+      font-size:1rem;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow:var(--shadow);
+    }
+    .finalBtn.show{display:block}
+    .finale{
+      display:none;
+      margin-top:28px;
+      background:var(--card);
+      border-radius:34px;
+      padding:34px 24px;
+      box-shadow:var(--shadow);
+      border:1px solid #fff;
+      text-align:center;
+    }
+    .finale.show{display:block}
+    .finale h2{
+      margin:10px 0 14px;
+      font-family:"Playfair Display", serif;
+      font-size:clamp(2rem, 4vw, 3.5rem);
+      color:#b53f6d;
+    }
+    .finale .message{
+      max-width:850px;
+      margin:0 auto;
+      line-height:1.9;
+      font-size:1.05rem;
+    }
+    .wishes{
+      margin-top:28px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+      gap:16px;
+      text-align:left;
+    }
+    .wish{
+      background:#fff8fb;
+      border:1px solid #f7dbe5;
+      border-radius:26px;
+      padding:20px;
+    }
+    .wish h4{margin:0 0 10px; color:#9c4264}
+    .footerflowers{
+      margin-top:24px;
+      font-size:2rem;
+      letter-spacing:8px;
+    }
+    .audioNote{
+      margin-top:10px;
+      font-size:.9rem;
+      color:#7b6f79;
+    }
+    canvas#confetti{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:20;
+    }
+    @media (max-width: 900px){
+      .grid{grid-template-columns:1fr}
+      .panel{position:relative; top:0}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+  <div class="floating" aria-hidden="true">
+    <span style="left:6%;top:8%">🌸</span>
+    <span style="left:82%;top:10%">🌷</span>
+    <span style="left:14%;top:42%">🌼</span>
+    <span style="left:88%;top:55%">🌹</span>
+    <span style="left:10%;top:84%">🤍</span>
+    <span style="left:83%;top:86%">💐</span>
+  </div>
+
+  <div class="container">
+    <section class="hero">
+      <div class="badge">A little birthday garden for Hafsa Ghouri</div>
+      <h1>Reasons I’m Glad You Exist</h1>
+      <p class="sub">
+        Every flower here is holding one reason why you make life brighter, smarter, softer, and more beautiful.
+        Click each one to reveal it.
+      </p>
+      
+    </section>
+
+    <section class="grid">
+      <div class="flowers" id="flowers"></div>
+
+      <div>
+        <div class="panel">
+          <div id="panelContent" class="placeholder">
+            <div style="font-size:44px">💗</div>
+            <h2>For Hafsa</h2>
+            <p class="big" style="max-width:430px">
+              Start opening the flowers. Each one has a reason written for you, and every reason is true.
+            </p>
+          </div>
+          <div class="count" id="countBox">0 of 6 flowers opened</div>
+        </div>
+        <button class="finalBtn" id="finalBtn">See the birthday surprise ✨</button>
+      </div>
+    </section>
+
+    <section class="finale" id="finale">
+      <div style="font-size:64px">🎂</div>
+      <h2>Happy Birthday, Hafsa Ghouri ✨</h2>
+      <p class="message">
+        May this year bring you the same beauty, peace, and brilliance that you bring into other people’s lives.
+        May your hard work be rewarded, your ideas keep blooming, your heart stay light, and your days be filled with
+        love, laughter, flowers, and countless little moments that make life feel special. You deserve joy that feels
+        gentle, success that feels earned, and a life that keeps surprising you in the sweetest ways. Happy birthday.
+      </p>
+
+      <div class="wishes">
+        <div class="wish">
+          <h4>For your mind</h4>
+          <div>May your intelligence keep opening beautiful doors for you.</div>
+        </div>
+        <div class="wish">
+          <h4>For your journey</h4>
+          <div>May every chapter ahead be even more meaningful than the last.</div>
+        </div>
+        <div class="wish">
+          <h4>For your heart</h4>
+          <div>May you always be surrounded by care, warmth, and sincere love.</div>
+        </div>
+      </div>
+
+      <div class="footerflowers">🌷 🌹 🤍 🌸 💐 🌼 ✨</div>
+    </section>
+  </div>
+
+  <script>
+    const data = [
+      {
+        name: "Rose",
+        emoji: "🌹",
+        bg: "linear-gradient(135deg, #ffd7e2, #ffe8f1)",
+        reason: "You are incredibly hardworking. The way you keep going, quietly and beautifully, is something I genuinely admire."
+      },
+      {
+        name: "Lily",
+        emoji: "🌸",
+        bg: "linear-gradient(135deg, #ffe4f3, #fff1f7)",
+        reason: "Your mind is brilliant. You explain things so clearly and so effortlessly that even difficult ideas start feeling simple."
+      },
+      {
+        name: "Jasmine",
+        emoji: "🤍",
+        bg: "linear-gradient(135deg, #f6f6f6, #ffffff)",
+        reason: "You are like a walking encyclopedia. Without you, we probably would not have even discovered half the books, ideas, and worlds you introduced us to."
+      },
+      {
+        name: "Tulip",
+        emoji: "🌷",
+        bg: "linear-gradient(135deg, #ffe6db, #fff0ec)",
+        reason: "The way you teach is special. You explain with so much ease and patience that it feels better than most classrooms ever could."
+      },
+      {
+        name: "Sunflower",
+        emoji: "🌻",
+        bg: "linear-gradient(135deg, #fff1bf, #fff7da)",
+        reason: "You are caring in the gentlest way. You make people feel seen, supported, and safe without ever making it look difficult."
+      },
+      {
+        name: "Orchid",
+        emoji: "💐",
+        bg: "linear-gradient(135deg, #eddcff, #f5ecff)",
+        reason: "Your ideas are beautiful and intelligent at the same time. You make everything you touch feel prettier, deeper, and more meaningful."
+      }
+    ];
+
+    const flowersEl = document.getElementById("flowers");
+    const panelContent = document.getElementById("panelContent");
+    const countBox = document.getElementById("countBox");
+    const finalBtn = document.getElementById("finalBtn");
+    const finale = document.getElementById("finale");
+    const opened = new Set();
+    let audioStarted = false;
+    let audio = null;
+
+    async function setupAudio() {
+      if (audioStarted) return;
+      audioStarted = true;
+      const candidates = [
+        "music/song.mp3",
+        "music/song.wav",
+        "music/song.ogg",
+        "music/birthday-song.mp3"
+      ];
+      for (const src of candidates) {
+        try {
+          const test = new Audio(src);
+          await new Promise((resolve, reject) => {
+            test.addEventListener("canplaythrough", () => resolve(), { once: true });
+            test.addEventListener("error", () => reject(), { once: true });
+            test.load();
+          });
+          audio = test;
+          audio.loop = true;
+          audio.volume = 0.6;
+          audio.play().catch(() => {});
+          document.getElementById("audioNote").innerHTML = "Music loaded from the <strong>music</strong> folder 🎵";
+          break;
+        } catch (e) {}
+      }
+    }
+
+    function renderPanel(index) {
+      const item = data[index];
+      panelContent.className = "";
+      panelContent.innerHTML = `
+        <div style="display:flex;gap:14px;align-items:center">
+          <div style="font-size:42px">${item.emoji}</div>
+          <div>
+            <div style="font-size:13px;color:#8d7f89">Reason #${index + 1}</div>
+            <h2 style="margin:0">${item.name}</h2>
+          </div>
+        </div>
+        <p class="big">${item.reason}</p>
+      `;
+    }
+
+    function updateCount() {
+      countBox.textContent = `${opened.size} of ${data.length} flowers opened`;
+      if (opened.size === data.length) finalBtn.classList.add("show");
+    }
+
+    data.forEach((item, index) => {
+      const btn = document.createElement("button");
+      btn.className = "flower";
+      btn.style.background = item.bg;
+      btn.innerHTML = `
+        <div class="num">Reason #${index + 1}</div>
+        <div class="emoji">${item.emoji}</div>
+        <h3>${item.name}</h3>
+        <p>Tap to reveal a little piece of appreciation.</p>
+      `;
+      btn.addEventListener("click", async () => {
+        await setupAudio();
+        opened.add(index);
+        btn.querySelector(".num").textContent = "Opened";
+        renderPanel(index);
+        updateCount();
+      });
+      flowersEl.appendChild(btn);
+    });
+
+    function confettiBurst() {
+      const canvas = document.getElementById("confetti");
+      const ctx = canvas.getContext("2d");
+      canvas.width = innerWidth;
+      canvas.height = innerHeight;
+      const pieces = Array.from({length: 180}, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * -canvas.height,
+        r: 4 + Math.random() * 7,
+        d: 2 + Math.random() * 4,
+        tilt: Math.random() * 10 - 10,
+        color: ["#f06292","#ffd54f","#ce93d8","#81d4fa","#ffab91","#aed581"][Math.floor(Math.random()*6)],
+        emoji: ["🌸","🌷","🌼","✨","🌹","H"][Math.floor(Math.random()*6)],
+      }));
+
+      let frame = 0;
+      function draw() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        pieces.forEach(p => {
+          ctx.font = `${p.r * 3}px serif`;
+          ctx.fillStyle = p.color;
+          ctx.fillText(p.emoji, p.x, p.y);
+        });
+      }
+      function update() {
+        pieces.forEach(p => {
+          p.y += p.d;
+          p.x += Math.sin(frame/18) * 1.2;
+          if (p.y > canvas.height + 20) {
+            p.y = -20;
+            p.x = Math.random() * canvas.width;
+          }
+        });
+      }
+      function loop() {
+        frame++;
+        draw();
+        update();
+        if (frame < 340) {
+          requestAnimationFrame(loop);
+        } else {
+          ctx.clearRect(0,0,canvas.width,canvas.height);
+        }
+      }
+      loop();
+    }
+
+    finalBtn.addEventListener("click", () => {
+      finale.classList.add("show");
+      confettiBurst();
+      finale.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    window.addEventListener("resize", () => {
+      const canvas = document.getElementById("confetti");
+      canvas.width = innerWidth;
+      canvas.height = innerHeight;
+    });
+
+    updateCount();
+  </script>
+</body>
+</html>
